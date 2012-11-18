@@ -258,7 +258,6 @@ def sample_postcode_search(postcode, maxdistance):
         print outl
         print "==="
 
-
 #res = get_subject_stats_by_school("KS4_APMAT", "","KS5_1011")
 #res = get_all_schools("KS5_1011")
 #for sk in res:
