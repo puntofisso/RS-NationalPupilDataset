@@ -5,4 +5,4 @@ form = cgi.FieldStorage()
 
 
 
-print form["username"]
+#print form["username"]

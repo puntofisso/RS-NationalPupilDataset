@@ -252,20 +252,16 @@ def get_schools_by_distance(postcode, distance, dataset):
 # sample function used for search
 def sample_postcode_search(postcode, maxdistance):
     schools = get_schools_by_distance(postcode, maxdistance, "KS5_1011")
+    tot = []
     for school in schools: 
-        print "SEARCHING SCHOOL " + school['school-name']
         outl =get_outliers_stats_school(school['school-name'], school['school-postcode'], "KS5_1011")
-        print outl
-        print "==="
+        myd = dict()
+        myd['school'] = school
+        myd['stats'] = outl
+        tot.append(myd)
 
-#res = get_subject_stats_by_school("KS4_APMAT", "","KS5_1011")
-#res = get_all_schools("KS5_1011")
-#for sk in res:
-#    postcode = sk['SCH_POSTCODE']
-#    print "Get " + postcode
-#    name = sk['SCH_SCHOOLNAME']
-#    res = get_outliers_stats_school(name, postcode, "KS5_1011")
-#print res
-#print get_schools_by_distance("HA9 7DU", 10, "KS5_1011")
-#json.dumps(res, sort_keys=True, indent=4)
-sample_postcode_search("HA9 7DU", 10)
+    return tot
+
+postcode = sys.argv[1]
+ret = sample_postcode_search(postcode, 10)
+print json.dumps(ret, sort_keys=True, indent=4)
