@@ -190,17 +190,17 @@ def get_outliers_stats_school(school, postcode, dataset):
         elif outl == 2: #negative outlier
             neg_k5 = neg_k5 + 1
           
-    out['positive-outliers-k4'] = pos_k4
-    out['negative-outliers-k4'] = neg_k4
-    out['mean-k4'] = m_k4
-    out['standard-deviation-k4'] = s_k4
-    out['students-k4'] = len(sums_k4)
+    out['positive_outliers_k4'] = pos_k4
+    out['negative_outliers_k4'] = neg_k4
+    out['mean_k4'] = m_k4
+    out['standard_deviation_k4'] = s_k4
+    out['students_k4'] = len(sums_k4)
 
-    out['positive-outliers-k5'] = pos_k5
-    out['negative-outliers-k5'] = neg_k5
-    out['mean-k5'] = m_k5
-    out['standard-deviation-k5'] = s_k5
-    out['students-k5'] = len(sums_k5)
+    out['positive_outliers_k5'] = pos_k5
+    out['negative_outliers_k5'] = neg_k5
+    out['mean_k5'] = m_k5
+    out['standard_deviation_k5'] = s_k5
+    out['students_k5'] = len(sums_k5)
     # under the assumption that we only select students who've both done GCSEs and A-Levels,
     # out['students-k4'] = out['students-k5']
 
@@ -242,8 +242,8 @@ def get_schools_by_distance(postcode, distance, dataset):
         dist = distance_on_unit_sphere(float(mylat), float(mylon), float(this_lat), float(this_lon))
         if dist < float(distance):
             myout = dict()
-            myout['school-name'] = school['SCH_SCHOOLNAME']
-            myout['school-postcode'] = thispostcode
+            myout['school_name'] = school['SCH_SCHOOLNAME']
+            myout['school_postcode'] = thispostcode
             myout['distance'] = dist
             schools_dist.append(myout)
 
@@ -254,7 +254,7 @@ def sample_postcode_search(postcode, maxdistance):
     schools = get_schools_by_distance(postcode, maxdistance, "KS5_1011")
     tot = []
     for school in schools: 
-        outl =get_outliers_stats_school(school['school-name'], school['school-postcode'], "KS5_1011")
+        outl =get_outliers_stats_school(school['school_name'], school['school_postcode'], "KS5_1011")
         myd = dict()
         myd['school'] = school
         myd['stats'] = outl
