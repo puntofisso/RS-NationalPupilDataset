@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# by Giuseppe Sollazzo @puntofisso
 
 import MySQLdb as mdb
 import MySQLdb.cursors
@@ -151,6 +152,10 @@ def get_outliers_stats_school(school, postcode, dataset):
     for row in d:
         this_student_k4 = row['KS4_PTSTNEWG']#0
         this_student_k5 = row['KS5_POINTS_GA']#0
+        # in case you want to compute the Cambridge assessment of GCSEs/A-levels
+        # adapt the following commented lines of code
+        # and set the ks4grade and ks5grade at the beginning
+        # more info: https://www.admin.cam.ac.uk/offices/admissions/handbook/section1/1_4.html
         #for k,v in row.iteritems():
         #    if k.startswith('KS4_AP'):
         #        if v <> "":
