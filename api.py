@@ -11,7 +11,6 @@ import string
 import math
 con = None
 
-
 #ks4grade = {'FG':0,'GG':0,'DE':0,'EE':0,'EF':0,'**':0,'CC':0,'DD':0,'BB':0,'CD':0,'FF':0,'*A':0,'AA':0,'AB':0,'BC':0,'P':0,'Q':0,'U':0,'*':8,'A':7,'B':6,'C':5,'D':4,'E':3,'F':2,'G':1}
 #ks5grade = {'*':300,'A':270,'B':240,'C':210,'D':180,'E':150,'Q':0,'U':0,'X':0}
 
@@ -216,18 +215,58 @@ def get_all_schools(dataset):
 
 # returns all school within a certain radius from a given postcode
 def get_schools_by_distance(postcode, distance, dataset):
-    # TODO
-    return
+    # TODO BETTER THAN THIS WHEN DB of LON/LAT will be populated
+    out = []
+    # PRE-REQ: get lon/lat for my postcode
+    query = "SELECT LONGITUDE, LATITUDE from uk_postcodes WHERE BINARY REPLACE(POSTCODE, ' ', '') = BINARY REPLACE('" + postcode + "', ' ', '')"
+    d = mysql_exec(query)
+    mylon = d[0]['LONGITUDE']
+    mylat = d[0]['LATITUDE']
+    # 0. get first part of postcode
+    pref, sep, post = postcode.partition(" ")
+    # 1. get town
+    query = "SELECT distinct SCH_TOWN from " + dataset + " WHERE SCH_POSTCODE LIKE '" + pref +"%'"
+    d = mysql_exec(query)
+    town = d[0]['SCH_TOWN']
+    # 2. get all schools in town with postcode
+    query = "SELECT distinct SCH_SCHOOLNAME, SCH_POSTCODE from " + dataset + " WHERE SCH_TOWN ='" + town + "'"
+    d = mysql_exec(query)
+    schools_dist = []
+    # 3. for each postcode, get lon/lat, calculate distance, add only schools within the radius given
+    for school in d:
+        thispostcode = school['SCH_POSTCODE']
+        query = "SELECT LONGITUDE, LATITUDE from uk_postcodes WHERE BINARY REPLACE(POSTCODE, ' ', '') = BINARY REPLACE('" + thispostcode + "', ' ', '')"
+	d = mysql_exec(query)
+        this_lon = d[0]['LONGITUDE']
+        this_lat = d[0]['LATITUDE']
+        dist = distance_on_unit_sphere(float(mylat), float(mylon), float(this_lat), float(this_lon))
+        if dist < float(distance):
+            myout = dict()
+            myout['school-name'] = school['SCH_SCHOOLNAME']
+            myout['school-postcode'] = thispostcode
+            myout['distance'] = dist
+            schools_dist.append(myout)
 
+    return schools_dist
+
+# sample function used for search
+def sample_postcode_search(postcode, maxdistance):
+    schools = get_schools_by_distance(postcode, maxdistance, "KS5_1011")
+    for school in schools: 
+        print "SEARCHING SCHOOL " + school['school-name']
+        outl =get_outliers_stats_school(school['school-name'], school['school-postcode'], "KS5_1011")
+        print outl
+        print "==="
 
 
 #res = get_subject_stats_by_school("KS4_APMAT", "","KS5_1011")
-res = get_all_schools("KS5_1011")
-for sk in res:
-    postcode = sk['SCH_POSTCODE']
-    print "Get " + postcode
-    name = sk['SCH_SCHOOLNAME']
-    res = get_outliers_stats_school(name, postcode, "KS5_1011")
-    print res
+#res = get_all_schools("KS5_1011")
+#for sk in res:
+#    postcode = sk['SCH_POSTCODE']
+#    print "Get " + postcode
+#    name = sk['SCH_SCHOOLNAME']
+#    res = get_outliers_stats_school(name, postcode, "KS5_1011")
+#print res
+#print get_schools_by_distance("HA9 7DU", 10, "KS5_1011")
 #json.dumps(res, sort_keys=True, indent=4)
-
+sample_postcode_search("HA9 7DU", 10)
