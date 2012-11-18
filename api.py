@@ -195,11 +195,15 @@ def get_outliers_stats_school(school, postcode, dataset):
     out['negative-outliers-k4'] = neg_k4
     out['mean-k4'] = m_k4
     out['standard-deviation-k4'] = s_k4
- 
+    out['students-k4'] = len(sums_k4)
+
     out['positive-outliers-k5'] = pos_k5
     out['negative-outliers-k5'] = neg_k5
     out['mean-k5'] = m_k5
     out['standard-deviation-k5'] = s_k5
+    out['students-k5'] = len(sums_k5)
+    # under the assumption that we only select students who've both done GCSEs and A-Levels,
+    # out['students-k4'] = out['students-k5']
 
     return out
 
