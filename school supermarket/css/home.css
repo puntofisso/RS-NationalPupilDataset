@@ -1,0 +1,8 @@
+::selection{background-color:#e3e3e3;color:#ff8c00;}
+::-moz-selection{background-color:#e3e3e3;color:#ff8c00;}
+*{margin:0;padding:0;}
+.clear{height:0;clear:both;}
+img{margin:0 auto;display:block;margin-top:80px;}
+form{margin-left:33%;margin-top:30px;}form input[type="text"]{width:250px;height:1.2em;font-size:2em;font-family:'bitter','helvetica',serif;padding:5px;margin-right:10px;color:#bdbdbd;}
+form input[type="submit"]{height:1.65em;font-size:2em;padding:5px;font-family:'bitter','helvetica',serif;}
+p{font-family:'bitter','helvetica',serif;text-align:center;margin-top:45px;}p a{color:#ff8c00;text-decoration:none;}

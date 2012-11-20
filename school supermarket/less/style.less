@@ -1,0 +1,152 @@
+@orange: #ff8c00;
+@grey: #e3e3e3;
+@green: #639c00;
+@red: #ba0016;
+@special: 'bitter', 'helvetica', serif;
+.transition (@time: 0.3s) {
+	transition: all ease-in-out @time;
+	-moz-transition: all ease-in-out @time;
+	-webkit-transition: all ease-in-out @time;
+	-o-transition: all ease-in-out @time;
+	-ms-transition: all ease-in-out @time;
+}
+.border-radius (@size: 5px) {
+	border-radius: @size;
+	-moz-border-radius: @size;
+	-webkit-border-radius: @size;
+	-o-border-radius: @size;
+	-ms-border-radius: @size;
+} 
+
+::selection {
+	background-color: @grey;
+	color: @orange;
+}
+::-moz-selection {
+	background-color: @grey;
+	color: @orange;
+}
+
+* {
+	margin: 0;
+	padding: 0
+}
+
+.clear {
+	height: 15px;
+	clear: both;
+}
+
+header {
+	background-color: white;
+	height: 50px;
+	width: 100%;
+	border-bottom: @grey solid 2px;
+	img {
+		height: 40px;
+		padding-top: 5px;
+		padding-left: 5px;
+	}
+	input[type="text"] {
+		position: absolute;
+		margin-top: -33px;
+		margin-left: 310px;
+		height: 1.8em;
+		width: 200px;
+		font-family: @special;
+		padding-left: 6px;
+	}
+	input[type="submit"] {
+		position: absolute;
+		margin-top: -34px;
+		margin-left: 550px;
+		height: 2.1em;
+		padding: 0 10px;
+		font-family: @special;
+	}
+	p {
+		color: grey;
+		margin-top: -34px;
+		float: right;
+		margin-right: 25px;
+		font-family: @special;
+		a {
+			color: @orange;
+			text-decoration: none;
+		}
+	}
+}
+
+#wrapper {
+	width: 800px;
+	margin: 0 auto;
+	height: 100%;
+	h3 {
+		font-weight: normal;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		font-family: @special;
+		#searchparameter {
+			font-weight: bold;
+		}
+	}
+	.result {
+		border-top: 1px @grey solid;
+		padding-top: 10px;
+		padding-bottom: 25px;
+		border-bottom: 1px @grey solid;
+		#name {
+			font-weight: normal;
+			color: @orange;
+			font-size: 1.5em;
+			font-family: @special;
+		}
+		#dis {
+			float: right;
+			font-size: 1.5em;
+		}
+		#ks3gen {
+			font-size: 1.5em;
+			float: left;
+			margin-left: 30px;
+			width: 33%;
+			display: inline-block;
+			.nextline {
+				font-size: 0.6em;
+				display: block;
+				margin-left: -15px;
+			}
+		}
+		#ks4gen {
+			font-size: 1.5em;
+			width: 33%;
+			margin-left: 70px;
+			display: inline-block;
+			.nextline {
+				font-size: 0.6em;
+				display: block;
+				margin-left: -15px;
+			}
+		}
+		#prog {
+			font-size: 1.5em;
+			float: right;
+			display: inline-block;
+			width: 33%;
+			margin-top: -50px;
+			margin-right: 30px;
+			text-align: right;
+			.nextline {
+				font-size: 0.6em;
+				display: block;
+				margin-right: -15px;
+			}
+		}
+		#prog.pos {
+			color: @green;
+		}
+		#prog.neg {
+			color: @red;
+		}
+	}
+}
